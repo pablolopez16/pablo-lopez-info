@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pablo López Fernández — DevOps Engineer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0a0e17;
+      --surface: #111827;
+      --surface2: #1a2235;
+      --accent: #00d4ff;
+      --accent2: #7c3aed;
+      --accent3: #10b981;
+      --text: #e2e8f0;
+      --text-muted: #64748b;
+      --text-dim: #94a3b8;
+      --border: rgba(255,255,255,0.07);
+      --glow: 0 0 40px rgba(0,212,255,0.15);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* Background grid */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 4rem;
+      background: rgba(10,14,23,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    /* MAIN */
+    main {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 8rem 4rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(0,212,255,0.08) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .hero-glow2 {
+      position: absolute;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(124,58,237,0.07) 0%, transparent 70%);
+      top: 20%; right: 10%;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      max-width: 900px;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      padding: 0.4rem 1rem;
+      border: 1px solid rgba(0,212,255,0.3);
+      border-radius: 2px;
+      background: rgba(0,212,255,0.05);
+    }
+
+    .hero-tag::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      line-height: 1;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero h1 .name-first { color: var(--text); }
+    .hero h1 .name-last {
+      color: transparent;
+      -webkit-text-stroke: 1.5px var(--accent);
+    }
+
+    .hero-role {
+      font-family: 'DM Mono', monospace;
+      font-size: 1rem;
+      color: var(--text-dim);
+      margin-bottom: 2rem;
+      letter-spacing: 0.05em;
+    }
+
+    .hero-role span { color: var(--accent3); }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--text-dim);
+      max-width: 580px;
+      margin-bottom: 3rem;
+      line-height: 1.8;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 2rem;
+      background: var(--accent);
+      color: var(--bg);
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: all 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0,212,255,0.3);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 2rem;
+      background: transparent;
+      color: var(--text-dim);
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      transition: all 0.2s;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* CONTACT STRIP */
+    .contact-strip {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .contact-item a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .contact-item a:hover { color: var(--accent); }
+
+    .contact-item .icon { color: var(--accent); font-size: 0.9rem; }
+
+    /* SECTIONS */
+    section {
+      padding: 6rem 4rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      letter-spacing: -0.02em;
+      margin-bottom: 3rem;
+      color: var(--text);
+    }
+
+    /* SKILLS */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .skill-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.75rem;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skill-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+
+    .skill-card:hover::before { transform: scaleX(1); }
+    .skill-card:hover {
+      border-color: rgba(0,212,255,0.2);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+    }
+
+    .skill-card-icon {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .skill-card-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+      letter-spacing: 0.02em;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .skill-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      padding: 0.2rem 0.6rem;
+      background: rgba(0,212,255,0.07);
+      border: 1px solid rgba(0,212,255,0.15);
+      border-radius: 2px;
+      color: var(--text-dim);
+    }
+
+    /* EXPERIENCE */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 3rem;
+      padding-left: 2rem;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -2.45rem;
+      top: 0.4rem;
+      width: 10px; height: 10px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 12px rgba(0,212,255,0.5);
+    }
+
+    .timeline-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .timeline-company {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text);
+    }
+
+    .timeline-role {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent);
+      padding: 0.2rem 0.7rem;
+      border: 1px solid rgba(0,212,255,0.3);
+      border-radius: 2px;
+    }
+
+    .timeline-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-left: auto;
+    }
+
+    .timeline-desc {
+      color: var(--text-dim);
+      font-size: 0.9rem;
+      line-height: 1.8;
+    }
+
+    .timeline-desc ul {
+      list-style: none;
+      margin-top: 0.75rem;
+    }
+
+    .timeline-desc ul li {
+      position: relative;
+      padding-left: 1.2rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .timeline-desc ul li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--accent3);
+      font-size: 0.8rem;
+    }
+
+    /* PROJECTS */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2rem;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent2), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .project-card:hover::after { opacity: 1; }
+    .project-card:hover {
+      border-color: rgba(124,58,237,0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+    }
+
+    .project-number {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      letter-spacing: 0.1em;
+    }
+
+    .project-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+      line-height: 1.4;
+    }
+
+    .project-desc {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      line-height: 1.7;
+      margin-bottom: 1.25rem;
+    }
+
+    .project-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .stack-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      padding: 0.2rem 0.55rem;
+      background: rgba(124,58,237,0.1);
+      border: 1px solid rgba(124,58,237,0.2);
+      border-radius: 2px;
+      color: #a78bfa;
+    }
+
+    /* CERTIFICATIONS */
+    .certs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+
+    .cert-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.5rem;
+      transition: all 0.3s;
+    }
+
+    .cert-card:hover {
+      border-color: rgba(16,185,129,0.3);
+      transform: translateY(-2px);
+    }
+
+    .cert-icon {
+      font-size: 1.8rem;
+      flex-shrink: 0;
+    }
+
+    .cert-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+
+    .cert-issuer {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--accent3);
+    }
+
+    .cert-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    /* EDUCATION */
+    .edu-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2rem;
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+    }
+
+    .edu-icon { font-size: 2.5rem; flex-shrink: 0; }
+
+    .edu-degree {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+
+    .edu-institution {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--accent);
+      margin-bottom: 0.25rem;
+    }
+
+    .edu-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    /* LANGUAGES */
+    .lang-grid {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .lang-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.5rem 2rem;
+      text-align: center;
+      min-width: 140px;
+      transition: all 0.3s;
+    }
+
+    .lang-card:hover { border-color: rgba(0,212,255,0.2); }
+
+    .lang-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+    }
+
+    .lang-level {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent3);
+    }
+
+    /* COVER LETTER SECTION */
+    .cover-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cover-section::before {
+      content: '"';
+      position: absolute;
+      top: -1rem; left: 1.5rem;
+      font-family: 'Syne', sans-serif;
+      font-size: 10rem;
+      color: rgba(0,212,255,0.04);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .cover-text {
+      font-size: 0.95rem;
+      color: var(--text-dim);
+      line-height: 2;
+      max-width: 720px;
+    }
+
+    .cover-text p { margin-bottom: 1.25rem; }
+    .cover-text p:last-child { margin-bottom: 0; }
+
+    /* BLOG */
+    .blog-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2.5rem;
+      position: relative;
+    }
+
+    .blog-tag {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--accent2);
+      border: 1px solid rgba(124,58,237,0.3);
+      padding: 0.2rem 0.7rem;
+      border-radius: 2px;
+      margin-bottom: 1rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .blog-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+      line-height: 1.3;
+    }
+
+    .blog-body {
+      font-size: 0.93rem;
+      color: var(--text-dim);
+      line-height: 1.9;
+    }
+
+    .blog-body p { margin-bottom: 1.2rem; }
+    .blog-body h3 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text);
+      margin: 1.75rem 0 0.75rem;
+    }
+
+    /* PRESENTATION */
+    .presentation-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2.5rem;
+    }
+
+    .presentation-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .presentation-card p {
+      font-size: 0.92rem;
+      color: var(--text-dim);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 3rem 4rem;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    footer p {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    /* DIVIDER */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 0 4rem;
+    }
+
+    /* ANIMATIONS */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 0.6s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in:nth-child(1) { animation-delay: 0.1s; }
+    .fade-in:nth-child(2) { animation-delay: 0.2s; }
+    .fade-in:nth-child(3) { animation-delay: 0.3s; }
+    .fade-in:nth-child(4) { animation-delay: 0.4s; }
+    .fade-in:nth-child(5) { animation-delay: 0.5s; }
+
+    /* SCROLL REVEAL */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero, section { padding: 4rem 1.5rem; }
+      .hero { padding-top: 6rem; }
+      footer { padding: 2rem 1.5rem; }
+      .divider { margin: 0 1.5rem; }
+      .edu-card { flex-direction: column; gap: 1rem; }
+      .cover-section { padding: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">PL/</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#cover">Cover Letter</a></li>
+      <li><a href="#blog">Blog</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero" id="about">
+      <div class="hero-glow"></div>
+      <div class="hero-glow2"></div>
+      <div class="hero-content">
+        <div class="hero-tag fade-in">Available for opportunities · Madrid</div>
+        <h1 class="fade-in">
+          <span class="name-first">Pablo López</span><br>
+          <span class="name-last">Fernández</span>
+        </h1>
+        <p class="hero-role fade-in">
+          <span>DevOps Engineer</span> · AWS · Cloud Infrastructure · CI/CD
+        </p>
+        <p class="hero-desc fade-in">
+          Computer Science student at UPM with hands-on experience in cloud engineering, infrastructure as code, and serverless architectures. AWS Certified and Terraform certified, passionate about building reliable, automated systems.
+        </p>
+        <div class="hero-cta fade-in">
+          <a href="#experience" class="btn-primary">View Experience →</a>
+          <a href="#cover" class="btn-secondary">Cover Letter</a>
+        </div>
+        <div class="contact-strip fade-in">
+          <div class="contact-item">
+            <span class="icon">📞</span>
+            <a href="tel:+34619139576">(+34) 619 139 576</a>
+          </div>
+          <div class="contact-item">
+            <span class="icon">✉</span>
+            <a href="mailto:pablolopez161616@gmail.com">pablolopez161616@gmail.com</a>
+          </div>
+          <div class="contact-item">
+            <span class="icon">📍</span>
+            <span>Madrid, Spain</span>
+          </div>
+          <div class="contact-item">
+            <span class="icon">💼</span>
+            <a href="https://linkedin.com/in/pablo-lopez-fernandez" target="_blank">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="reveal">
+        <p class="section-label">Technical Stack</p>
+        <h2 class="section-title">Skills & Tools</h2>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-card reveal">
+          <div class="skill-card-icon">☁️</div>
+          <div class="skill-card-title">Cloud Computing</div>
+          <div class="skill-tags">
+            <span class="skill-tag">AWS</span>
+            <span class="skill-tag">Azure</span>
+            <span class="skill-tag">Lambda</span>
+            <span class="skill-tag">Azure Functions</span>
+            <span class="skill-tag">S3</span>
+            <span class="skill-tag">CloudWatch</span>
+          </div>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-card-icon">🔁</div>
+          <div class="skill-card-title">DevOps & CI/CD</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Git</span>
+            <span class="skill-tag">GitHub Actions</span>
+            <span class="skill-tag">GitLab CI</span>
+            <span class="skill-tag">Azure DevOps</span>
+            <span class="skill-tag">Docker</span>
+            <span class="skill-tag">Linux</span>
+          </div>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-card-icon">🏗️</div>
+          <div class="skill-card-title">Infrastructure as Code</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Terraform</span>
+            <span class="skill-tag">HCL</span>
+            <span class="skill-tag">Ansible</span>
+            <span class="skill-tag">LocalStack</span>
+          </div>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-card-icon">💻</div>
+          <div class="skill-card-title">Programming</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">Bash</span>
+            <span class="skill-tag">Java</span>
+            <span class="skill-tag">C#</span>
+            <span class="skill-tag">REST APIs</span>
+          </div>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-card-icon">📊</div>
+          <div class="skill-card-title">Monitoring</div>
+          <div class="skill-tags">
+            <span class="skill-tag">AWS CloudWatch</span>
+            <span class="skill-tag">Azure App Insights</span>
+            <span class="skill-tag">Application Logs</span>
+          </div>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-card-icon">🐳</div>
+          <div class="skill-card-title">Containers</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Docker</span>
+            <span class="skill-tag">Docker Compose</span>
+            <span class="skill-tag">Kubernetes (familiar)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="reveal">
+        <p class="section-label">Work History</p>
+        <h2 class="section-title">Experience</h2>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="timeline-meta">
+            <span class="timeline-company">LoxamHune</span>
+            <span class="timeline-role">Software & Cloud Engineer</span>
+            <span class="timeline-date">Nov 2024 – Present · Madrid</span>
+          </div>
+          <div class="timeline-desc">
+            <ul>
+              <li>Developed and customized Microsoft Dynamics 365 Business Central (AL) to improve invoicing, vendor management, and role-based access workflows.</li>
+              <li>Designed and implemented cloud-based solutions on Microsoft Azure, including serverless components with Azure Functions for application logic and automation.</li>
+              <li>Configured monitoring and logging with Azure Application Insights; managed data storage using Azure Blob Storage and queues.</li>
+              <li>Managed source code, work items, and repositories through Git, GitHub, and Azure DevOps.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="reveal">
+        <p class="section-label">Personal Work</p>
+        <h2 class="section-title">Projects</h2>
+      </div>
+      <div class="projects-grid">
+        <div class="project-card reveal">
+          <div class="project-number">// 01</div>
+          <div class="project-title">Unified Calendar Integration — Serverless Architecture</div>
+          <div class="project-desc">
+            A system that merges, filters, and transforms events from multiple calendar services into a single standardized calendar. Built on a modular, serverless AWS architecture with automatic deployment via Infrastructure as Code.
+          </div>
+          <div class="project-stack">
+            <span class="stack-tag">AWS Lambda</span>
+            <span class="stack-tag">Terraform</span>
+            <span class="stack-tag">Google Calendar API</span>
+            <span class="stack-tag">ICS/WebCal</span>
+            <span class="stack-tag">Serverless</span>
+          </div>
+        </div>
+        <div class="project-card reveal">
+          <div class="project-number">// 02</div>
+          <div class="project-title">DevOps Technical Assessment — S3 API with LocalStack & CI/CD</div>
+          <div class="project-desc">
+            End-to-end DevOps project implementing a REST API in Python that interacts with an AWS S3 bucket emulated via LocalStack. Infrastructure provisioned with Terraform, containerized with Docker Compose, and automated with a full GitHub Actions CI/CD pipeline.
+          </div>
+          <div class="project-stack">
+            <span class="stack-tag">Python</span>
+            <span class="stack-tag">Terraform</span>
+            <span class="stack-tag">Docker</span>
+            <span class="stack-tag">LocalStack</span>
+            <span class="stack-tag">GitHub Actions</span>
+            <span class="stack-tag">S3</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- CERTIFICATIONS & EDUCATION -->
+    <section id="certs">
+      <div class="reveal">
+        <p class="section-label">Credentials</p>
+        <h2 class="section-title">Certifications & Education</h2>
+      </div>
+
+      <div class="certs-grid reveal" style="margin-bottom: 2.5rem;">
+        <div class="cert-card">
+          <div class="cert-icon">🟡</div>
+          <div>
+            <div class="cert-name">AWS Certified Cloud Practitioner</div>
+            <div class="cert-issuer">Amazon Web Services</div>
+            <div class="cert-date">Issued Oct 2025</div>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon">🟣</div>
+          <div>
+            <div class="cert-name">Terraform Associate (004)</div>
+            <div class="cert-issuer">HashiCorp</div>
+            <div class="cert-date">Issued Feb 2026</div>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon">🏆</div>
+          <div>
+            <div class="cert-name">II Hackathon URJC</div>
+            <div class="cert-issuer">Universidad Rey Juan Carlos</div>
+            <div class="cert-date">Mar 2025</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="edu-card reveal">
+        <div class="edu-icon">🎓</div>
+        <div>
+          <div class="edu-degree">Bachelor of Computer Science</div>
+          <div class="edu-institution">Universidad Politécnica de Madrid (UPM)</div>
+          <div class="edu-date">Sep 2021 – Jul 2026 · Madrid, Spain</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- LANGUAGES -->
+    <section id="languages">
+      <div class="reveal">
+        <p class="section-label">Communication</p>
+        <h2 class="section-title">Languages</h2>
+      </div>
+      <div class="lang-grid reveal">
+        <div class="lang-card">
+          <div class="lang-name">Spanish</div>
+          <div class="lang-level">Native</div>
+        </div>
+        <div class="lang-card">
+          <div class="lang-name">English</div>
+          <div class="lang-level">B2 — Professional</div>
+        </div>
+        <div class="lang-card">
+          <div class="lang-name">German</div>
+          <div class="lang-level">A2–B1</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- COVER LETTER -->
+    <section id="cover">
+      <div class="reveal">
+        <p class="section-label">Application</p>
+        <h2 class="section-title">Cover Letter — Fintonic DevOps Internship</h2>
+      </div>
+      <div class="cover-section reveal">
+        <div class="cover-text">
+          <p>Dear Fintonic Team,</p>
+          <p>
+            I am writing to apply for the DevOps Engineer internship position at Fintonic. As a final-year Computer Science student at Universidad Politécnica de Madrid with active experience in cloud engineering and DevOps practices, I believe I can contribute meaningfully to your Cloud Engineering team from day one.
+          </p>
+          <p>
+            Over the past months at LoxamHune, I have worked hands-on with Azure-based cloud infrastructure — designing serverless solutions, managing storage and virtual networks, and maintaining CI/CD workflows through Azure DevOps and GitHub. This experience has given me a solid foundation in the day-to-day realities of cloud operations, which aligns directly with what your team is looking for.
+          </p>
+          <p>
+            On the infrastructure side, I hold both the AWS Certified Cloud Practitioner certification and the HashiCorp Terraform Associate certification, which reflect my commitment to building well-structured, reproducible infrastructure. In my personal projects, I have built end-to-end DevOps pipelines using Terraform, Docker, LocalStack, and GitHub Actions — including a REST API project where I automated the full infrastructure lifecycle using CI/CD.
+          </p>
+          <p>
+            I am particularly excited about the opportunity at Fintonic because of your focus on scalable cloud systems and your collaborative engineering culture. I am eager to work alongside your Cloud Engineering team, contribute to your CI/CD workflows, and keep learning in a fast-paced, real-world environment.
+          </p>
+          <p>
+            Thank you for considering my application. I would welcome the chance to discuss how I can support your team during this internship period.
+          </p>
+          <p>Sincerely,<br><strong style="color: var(--text); font-family: 'Syne', sans-serif;">Pablo López Fernández</strong></p>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- BLOG -->
+    <section id="blog">
+      <div class="reveal">
+        <p class="section-label">Blog Entry</p>
+        <h2 class="section-title">Divulgative Article</h2>
+      </div>
+      <div class="blog-card reveal">
+        <div class="blog-tag">Cloud & DevOps</div>
+        <div class="blog-title">From Code to Cloud: Why Every Developer Should Understand Infrastructure as Code</div>
+        <div class="blog-body">
+          <p>
+            Not long ago, setting up a server meant calling IT, filling out a request form, and waiting days. Today, a single file of code can provision an entire cloud infrastructure in minutes — and that shift is changing what it means to be a developer.
+          </p>
+          <h3>What is Infrastructure as Code?</h3>
+          <p>
+            Infrastructure as Code (IaC) is the practice of managing and provisioning computing resources — servers, databases, networks — through machine-readable configuration files instead of manual processes. Tools like Terraform, AWS CloudFormation, or Ansible allow teams to describe what their infrastructure should look like, version-control it alongside their application code, and reproduce it reliably across environments.
+          </p>
+          <h3>Why does it matter beyond DevOps?</h3>
+          <p>
+            The traditional wall between "dev" and "ops" is disappearing. Modern software teams expect developers to understand not just how their application works, but where and how it runs. IaC bridges that gap. When a developer can write a Terraform file to spin up an S3 bucket, configure a Lambda function, or set up a CI/CD pipeline, the feedback loop between writing code and deploying it shrinks from days to seconds.
+          </p>
+          <h3>A real example: CI/CD with GitHub Actions and Terraform</h3>
+          <p>
+            In a recent personal project, I built a REST API in Python that interacts with an AWS S3 bucket. Instead of clicking through the AWS console to set up resources, I described the entire infrastructure in HCL (HashiCorp Configuration Language) and connected it to a GitHub Actions pipeline. Every time I pushed code, the pipeline automatically validated the Terraform plan, applied changes to the infrastructure, and ran integration tests — all without manual intervention. The result was a fully reproducible, auditable system that anyone on the team could understand and rebuild from scratch.
+          </p>
+          <h3>The takeaway</h3>
+          <p>
+            IaC is not just a DevOps concern — it is a fundamental shift in how software is built and maintained. Understanding it makes you a more complete engineer, improves team collaboration, and reduces the "it works on my machine" problem at its root. If you have not explored tools like Terraform or GitHub Actions yet, there has never been a better time to start.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ORAL PRESENTATION -->
+    <section id="presentation">
+      <div class="reveal">
+        <p class="section-label">Oral Presentation</p>
+        <h2 class="section-title">Professional Presentation — Script</h2>
+      </div>
+      <div class="presentation-card reveal">
+        <h3>Introduction</h3>
+        <p>
+          Good morning. My name is Pablo López Fernández, I am a final-year Computer Science student at the Universidad Politécnica de Madrid, and today I want to present my professional profile focused on a DevOps Engineering internship at Fintonic.
+        </p>
+        <h3>Who I am and what I bring</h3>
+        <p>
+          Over the past year I have been working as a Cloud and Software Engineer at LoxamHune, where I have gained hands-on experience with Azure cloud infrastructure, serverless architectures, and DevOps workflows using Git and Azure DevOps. Alongside this, I hold two industry certifications: the AWS Certified Cloud Practitioner and the HashiCorp Terraform Associate — both of which reflect my commitment to building reliable, reproducible infrastructure.
+        </p>
+        <h3>Relevant projects</h3>
+        <p>
+          Beyond my professional role, I have built personal projects that directly map to what Fintonic is looking for: a serverless calendar integration system on AWS using Terraform, and an end-to-end DevOps pipeline with Docker, LocalStack, and GitHub Actions automating the full infrastructure lifecycle of a REST API.
+        </p>
+        <h3>Why Fintonic</h3>
+        <p>
+          Fintonic operates at the intersection of fintech and cloud-native infrastructure — which is exactly where I want to grow. Your team's focus on CI/CD, Kubernetes, and Linux administration aligns with the skills I am actively developing, and I see this internship as the opportunity to consolidate that learning in a real production environment.
+        </p>
+        <h3>Closing</h3>
+        <p>
+          I am available from May 11th, the proposed start date, and I am ready to contribute from day one. Thank you for your time.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Pablo López Fernández · DevOps Engineer · Madrid, Spain · pablolopez161616@gmail.com</p>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
